@@ -1,0 +1,39 @@
+package com.singleton;
+
+public class Bridge {
+
+    private static Bridge object=null;
+    private Bridge(){ }//constructor
+    static int player;
+    public static Bridge getInstance(){
+        if(object==null)
+            object = new Bridge();  //instance will be created at request time
+        player=player+1;
+        return object;
+    }
+
+    public void getChance(){
+        if(player>1) {
+            System.out.println("Please wait for your turn...");
+        }
+        else {
+            System.out.println("please go !");
+        }
+    }
+}
+
+//////////// DRIVER CODE ////////////
+public class MMain {
+
+    public static void main(String[] args) {
+        System.out.println();
+        Bridge yashwanth = Bridge.getInstance();
+        yashwanth.getChance();
+        System.out.println();
+        Bridge rocky = Bridge.getInstance();
+        rocky.getChance();
+        //System.out.println();
+        //Bridge naveen = Bridge.getInstance();
+        //naveen.getChance();
+    }
+}
