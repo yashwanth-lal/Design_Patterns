@@ -1,0 +1,128 @@
+package builder;
+
+public class User
+{
+    //All final attributes
+    private final String firstName; // required
+    private final String lastName; // required
+    private final int age; // optional
+    private final String phone; // optional
+    private final String address; // optional
+    private final String instagramFollowers; // optional
+    private final String instaId; // optional
+    private final String occupation; // optional
+    private User(UserBuilder builder) {
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.age = builder.age;
+        this.phone = builder.phone;
+        this.address = builder.address;
+        this.instagramFollowers=builder.instagramFollowers;
+        this.instaId=builder.instaId;
+        this.occupation=builder.occupation;
+    }
+
+    //All getter, and NO setter to provde immutability
+    public String getFirstName() {
+        return firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public int getAge() {
+        return age;
+    }
+    public String getPhone() {
+        return phone;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public String getInstagramFollowers() {
+        return instagramFollowers;
+    }
+    public String getInstaId() {
+        return instaId;
+    }
+    public String getOccupation() {
+        return occupation;
+    }
+
+    @Override
+    public String toString() {
+        return "User: firstname: "+this.firstName+",lastname: "+this.lastName+",age: "+this.age+",phone: "+this.phone+",address: "+this.address+",instagram_followers: "+this.instagramFollowers+",instaID: "+this.instaId+",occupation: "+this.occupation;
+    }
+
+    public static class UserBuilder
+    {
+        private final String firstName;
+        private final String lastName;
+        private int age;
+        private String phone;
+        private String address;
+        private String instagramFollowers;
+        private String instaId;
+        private String occupation;
+
+        public UserBuilder(String firstName, String lastName) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
+        public UserBuilder age(int age) {
+            this.age = age;
+            return this;
+        }
+        public UserBuilder phone(String phone) {
+            this.phone = phone;
+            return this;
+        }
+        public UserBuilder address(String address) {
+            this.address = address;
+            return this;
+        }
+        public UserBuilder instagramFollowers(String instagramFollowers) {
+            this.instagramFollowers = instagramFollowers;
+            return this;
+        }
+        public UserBuilder instaId(String instaId) {
+            this.instaId = instaId;
+            return this;
+        }
+        public UserBuilder occupation(String occupation) {
+            this.occupation = occupation;
+            return this;
+        }
+        //Return the finally constructed User object
+        public User build() {
+            User user =  new User(this);
+            return user;
+        }
+
+    }
+}
+/////////////// DRIVER CODE //////////////
+
+public class MainF {
+    public static void main(String[] args)
+    {
+        User delivery = new User.UserBuilder("Lokesh", "Gupta")
+            .age(30)
+            .phone("1234567")
+            .address("Fake address 1234")
+            .build();
+
+        System.out.println(delivery);
+
+        User instaAds = new User.UserBuilder("Jack", "Reacher")
+
+            .address("patel street,h-no:mv-56")
+            .age(25)
+            .instaId("Jack1999")
+            .instagramFollowers("50000")
+            .build();
+
+        System.out.println(instaAds);
+
+
+    }
+}
