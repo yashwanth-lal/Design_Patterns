@@ -1,0 +1,74 @@
+package Adaptor;
+package Adaptor;
+
+public interface VolumeButton {
+    public void TVSoundIncrease();
+    public void TVSoundDecrease();
+}
+class TVRemote implements VolumeButton{
+
+    @Override
+    public void TVSoundIncrease() {
+        System.out.println("increasing sound from main Tv remote");
+    }
+
+    @Override
+    public void TVSoundDecrease() {
+        System.out.println("decreasing sound from main Tv remote");
+
+    }
+}
+
+
+
+
+
+class DTHRemote{
+    public void DTHSoundIncrease(){
+        System.out.println("increasing sound from DTH remote");
+    }
+    public void DTHSoundDecrease(){
+        System.out.println("decreasing sound from DTH remote");
+    }
+}
+class volumeButtonAdapter implements VolumeButton{
+    DTHRemote dthRemote;
+    public volumeButtonAdapter(DTHRemote dthRemote){
+        this.dthRemote=dthRemote;
+    }
+
+    @Override
+    public void TVSoundIncrease() {
+        dthRemote.DTHSoundIncrease();
+    }
+
+    @Override
+    public void TVSoundDecrease() {
+        dthRemote.DTHSoundDecrease();
+    }
+}
+------------------------------MAIN---------------
+package Adaptor;
+
+public class Main{
+    public static void main(String[] args) {
+        TVRemote maintv_obj=new TVRemote();
+        System.out.println("using main TV remote");
+        maintv_obj.TVSoundIncrease();
+        maintv_obj.TVSoundDecrease();
+
+        System.out.println();
+
+        DTHRemote dth_obj=new DTHRemote();
+        System.out.println("using DTH provided remote");
+        dth_obj.DTHSoundIncrease();
+        dth_obj.DTHSoundDecrease();
+
+        System.out.println();
+
+        volumeButtonAdapter adap_obj=new volumeButtonAdapter(dth_obj);
+        System.out.println("the volumeButtonAdapter is in use");
+        adap_obj.TVSoundIncrease();
+        adap_obj.TVSoundDecrease();
+    }
+}
