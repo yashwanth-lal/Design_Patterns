@@ -1,0 +1,65 @@
+package Factory;
+
+abstract class Delivery {
+    public abstract String getProduct();
+
+    public String toString() {
+
+        return "Your product " + this.getProduct()+" will be delivered within 4 working days";
+    }
+}
+class LeastCostProducts extends Delivery {
+    String product;
+
+    LeastCostProducts(String product) {
+        this.product = product;
+    }
+    @Override
+    public String getProduct() {
+        return this.product;
+    }
+}
+class HighCostProducts extends Delivery {
+    String product;
+
+    HighCostProducts(String product) {
+
+        this.product = product;
+    }
+    @Override
+    public String getProduct() {
+        return this.product;
+    }
+}
+----------------------------
+package Factory;
+
+class DeliveryFactory {
+    public static Delivery getInstance(int price, String product) {
+        if(price>0 && price <= 499) {
+            System.out.println("Delivery charge of 40/- will be added");
+            return new LeastCostProducts(product);
+        } else if(price >= 500) {
+            System.out.println("No delivery charges");
+            return new HighCostProducts(product);
+        }
+
+        return null;
+    }
+}
+---------MAIN---------------------
+package Factory;
+
+class FactoryPatternExample {
+
+    public static void main(String[] args) {
+        Delivery prod1 = DeliveryFactory.getInstance(1999, "Headphones");
+        System.out.println(prod1);// If any object is printed, the toString() method is internally invoked by the java compiler.
+
+        System.out.println();
+
+        Delivery prod2 = DeliveryFactory.getInstance(499, "32GB pendrive");
+        System.out.println(prod2);
+    }
+
+}
